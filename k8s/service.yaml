@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: template-service
+  name: service_chat-service
   labels:
-    app: template-service
+    app: service_chat-service
 spec:
   type: ClusterIP
   selector:
-    app: template-service
+    app: service_chat-service
   ports:
   - port: 80
     targetPort: 8080

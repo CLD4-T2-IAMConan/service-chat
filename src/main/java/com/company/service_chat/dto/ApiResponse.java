@@ -1,4 +1,4 @@
-package com.company.template.dto;
+package com.company.service_chat.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

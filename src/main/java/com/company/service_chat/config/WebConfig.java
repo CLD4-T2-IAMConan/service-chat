@@ -1,4 +1,4 @@
-package com.company.template.config;
+package com.company.service_chat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

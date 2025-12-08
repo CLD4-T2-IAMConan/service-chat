@@ -1,10 +1,10 @@
-package com.company.template;
+package com.company.service_chat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TemplateApplicationTests {
+class Service_chatApplicationTests {
 
     @Test
     void contextLoads() {

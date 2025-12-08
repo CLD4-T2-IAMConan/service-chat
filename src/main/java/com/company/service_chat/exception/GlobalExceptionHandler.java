@@ -1,6 +1,6 @@
-package com.company.template.exception;
+package com.company.service_chat.exception;
 
-import com.company.template.dto.ApiResponse;
+import com.company.service_chat.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
