@@ -20,6 +20,4 @@ public class HealthController {
             ApiResponse.success(Map.of("status", "UP", "service", "template"))
         );
     }
-
-
 }
