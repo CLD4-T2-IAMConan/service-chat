@@ -23,23 +23,26 @@ public class ChatRoomService {
     private final ChatMemberRepository chatMemberRepository;
     private final ChatService chatService; // 시스템 메시지 저장을 위해 주입
     // private final TicketService ticketService; // 티켓 정보 조회를 위한 서비스
+    private final TicketLookupService ticketLookupService;
 
     // 생성자 주입
     public ChatRoomService(ChatRoomRepository chatRoomRepository,
                            ChatMemberRepository chatMemberRepository,
-                           ChatService chatService) {
+                           ChatService chatService,
+                           TicketLookupService ticketLookupService) {
         this.chatRoomRepository = chatRoomRepository;
         this.chatMemberRepository = chatMemberRepository;
         this.chatService = chatService;
+        this.ticketLookupService = ticketLookupService;
     }
 
     // --- 1. 채팅방 생성 (POST /chat/rooms) ---
     @Transactional // 생성 작업은 쓰기 트랜잭션 필요
     public ChatRoomResponse createRoom(Long ticketId, Long buyerId) {
 
-        // 1. 티켓 판매자 ID 조회
-        // [TODO: 실제 티켓 서비스에서 sellerId를 조회하는 로직 구현 필요]
-        Long sellerId = 99L;
+        // 1. 티켓 서비스에서 판매자 ID 조회
+        // [TODO: 실제 티켓 서비스에서 sellerId를 조회하는 로직 구현]
+        Long sellerId = ticketLookupService.getSellerId(ticketId);
 
         // 2. ChatRoom 생성 및 저장
         ChatRoom chatRoom = ChatRoom.builder()
