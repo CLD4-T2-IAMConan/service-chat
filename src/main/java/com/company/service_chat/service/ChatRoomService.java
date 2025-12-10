@@ -239,4 +239,26 @@ public class ChatRoomService {
         chatMember.markAsDeleted();
     }
 
+    // 1. 현재 채팅방 상태 조회
+    public ChatRoom.RoomStatus getRoomStatus(Long chatroomId) {
+
+        ChatRoom chatRoom = chatRoomRepository.findById(chatroomId)
+                .orElseThrow(() -> new NoSuchElementException("채팅방을 찾을 수 없습니다."));
+
+        return chatRoom.getRoomStatus(); // OPEN / LOCK / DONE
+    }
+
+    // 2. 채팅방 상태 변경
+    @Transactional
+    public void updateRoomStatus(Long chatroomId, ChatRoom.RoomStatus newRoomStatus) {
+
+        ChatRoom chatRoom = chatRoomRepository.findById(chatroomId)
+                .orElseThrow(() -> new NoSuchElementException("채팅방을 찾을 수 없습니다."));
+
+        // 기존 dealStatus 유지
+        ChatRoom.DealStatus currentDealStatus = chatRoom.getDealStatus();
+
+        // 엔티티의 updateStatus 호출
+        chatRoom.updateStatus(newRoomStatus, currentDealStatus);
+    }
 }
