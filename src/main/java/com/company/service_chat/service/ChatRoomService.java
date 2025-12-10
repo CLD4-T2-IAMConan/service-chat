@@ -227,4 +227,16 @@ public class ChatRoomService {
                 metadata
         );
     }
+
+    // 6. 채팅방 삭제(숨김 처리)
+    @Transactional
+    public void deleteChatRoomForUser(Long chatroomId, Long userId) {
+
+        ChatMember chatMember = chatMemberRepository
+                .findByUserIdAndChatroomId(userId, chatroomId)
+                .orElseThrow(() -> new NoSuchElementException("해당 채팅방의 멤버가 아닙니다."));
+
+        chatMember.markAsDeleted();
+    }
+
 }
