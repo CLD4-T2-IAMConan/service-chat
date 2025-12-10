@@ -13,5 +13,5 @@ public interface ChatMemberRepository extends JpaRepository<ChatMember, Long> {
     List<ChatMember> findByUserIdAndIsDeletedFalse(Long userId);
 
     // 특정 방의 특정 사용자 정보를 찾을 때 사용
-    Optional<ChatMember> findByChatroomIdAndUserId(Long chatroomId, Long userId);
+    Optional<ChatMember> findByUserIdAndChatroomId(Long userId, Long chatroomId);
 }
