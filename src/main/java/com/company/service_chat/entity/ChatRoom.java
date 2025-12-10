@@ -15,6 +15,7 @@ public class ChatRoom {
     private Long chatroomId; // PK
     private Long ticketId;
     private Long buyerId;
+    private Long sellerId;
     private Long lastMessageId;
 
     @Enumerated(EnumType.STRING) // DB에 ENUM 이름을 문자열로 저장
@@ -25,6 +26,7 @@ public class ChatRoom {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 
     // DB의 ENUM 타입과 일치시켜야 함
     public enum RoomStatus { OPEN, LOCK }
@@ -39,9 +41,10 @@ public class ChatRoom {
     }
 
     @Builder
-    public ChatRoom(Long ticketId, Long buyerId) {
+    public ChatRoom(Long ticketId, Long buyerId, Long sellerId) {
         this.ticketId = ticketId;
         this.buyerId = buyerId;
+        this.sellerId = sellerId;
     }
 
     // 상태 변경 메서드 (비즈니스 로직)
