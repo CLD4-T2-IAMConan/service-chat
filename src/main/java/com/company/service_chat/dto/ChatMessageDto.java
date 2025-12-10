@@ -14,7 +14,7 @@ public class ChatMessageDto {
     private Long senderId;
     private MessageType type;
     private String content;
-    private String metadata;
+    private Object metadata;
     private LocalDateTime sentAt;
 
     public enum MessageType {

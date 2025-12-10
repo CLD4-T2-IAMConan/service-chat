@@ -15,5 +15,5 @@ public class ChatMessageResponse {
     private String type;
     private String content;
     private LocalDateTime sentAt;
-    private Object metadata; // 필요 시에만
+    private Object metadata;
 }
