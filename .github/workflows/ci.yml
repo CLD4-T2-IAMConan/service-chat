@@ -56,3 +56,35 @@ jobs:
               repo: context.repo.repo,
               body: 'Build and tests completed successfully!'
             });
+
+      # ---------------------------
+      # 9. GHCR 로그인
+      # ---------------------------
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_LOGIN_TOKEN }}
+
+      # ---------------------------
+      # 10. Docker Build
+      # ---------------------------
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/service-chat
+          docker build -t $IMAGE_NAME:latest .
+
+      # ---------------------------
+      # 11. Docker Push
+      # ---------------------------
+      - name: Push Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/service-chat
+
+          # latest
+          docker push $IMAGE_NAME:latest
+
+          # 커밋 기반 태그 (옵션)
+          docker tag $IMAGE_NAME:latest $IMAGE_NAME:${{ github.sha }}
+          docker push $IMAGE_NAME:${{ github.sha }}
