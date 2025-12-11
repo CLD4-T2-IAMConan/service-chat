@@ -27,8 +27,8 @@ public class RoomStatusController {
     // PATCH /chat/rooms/status?chatroomId=10&status=LOCK
     @PatchMapping
     public ApiResponse<Void> updateRoomStatus(
-            @RequestParam Long chatroomId,
-            @RequestParam ChatRoom.RoomStatus status
+            @RequestParam("chatroomId") Long chatroomId,
+            @RequestParam("status") ChatRoom.RoomStatus status
     ) {
         chatRoomService.updateRoomStatus(chatroomId, status);
         return ApiResponse.success(null);
