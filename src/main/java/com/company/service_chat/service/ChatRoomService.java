@@ -66,7 +66,7 @@ public class ChatRoomService {
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
                 "label", "양도 요청하기",
-                "actionCode", "REQUEST_TRANSFER",
+                "actionCode", "TRANSFER_REQUEST",
                 "isPrimary", true
         ));
 
@@ -144,12 +144,12 @@ public class ChatRoomService {
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
                 "label", "양도 수락",
-                "actionCode", "ACCEPT_TRANSFER",
+                "actionCode", "TRANSFER_ACCEPT",
                 "isPrimary", true
         ));
         actions.add(Map.of(
                 "label", "양도 거절",
-                "actionCode", "REJECT_TRANSFER",
+                "actionCode", "TRANSFER_REJECT",
                 "isPrimary", false
         ));
 
