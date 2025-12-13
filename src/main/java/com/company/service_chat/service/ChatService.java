@@ -36,7 +36,7 @@ public class ChatService {
         this.objectMapper = objectMapper;
     }
 
-    // --- 1. 일반 메시지 및 시스템 메시지 DB 저장 ---
+    // --- 1. 일반 메시지 DB 저장 ---
     @Transactional
     public ChatMessage saveMessage(ChatMessageDto messageDto) {
         // Enum 매핑

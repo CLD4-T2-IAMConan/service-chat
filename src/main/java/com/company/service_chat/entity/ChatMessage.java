@@ -40,10 +40,12 @@ public class ChatMessage {
     }
 
     @Builder
-    public ChatMessage(Long chatroomId, Long senderId, MessageType type, String content, String metadata) {
+    public ChatMessage(Long messageId, Long chatroomId, Long senderId, MessageType type, String content, String metadata, LocalDateTime sentAt) {
+        this.messageId = messageId; //
         this.chatroomId = chatroomId;
         this.senderId = senderId;
         this.type = type;
+        this.sentAt = sentAt; //
         this.content = content;
         this.metadata = metadata;
     }
