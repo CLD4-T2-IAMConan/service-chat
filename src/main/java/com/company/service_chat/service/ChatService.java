@@ -39,11 +39,9 @@ public class ChatService {
     // --- 1. 일반 메시지 및 시스템 메시지 DB 저장 ---
     @Transactional
     public ChatMessage saveMessage(ChatMessageDto messageDto) {
-
         // Enum 매핑
         ChatMessage.MessageType mappedType =
                 ChatMessage.MessageType.valueOf(messageDto.getType().name());
-
         // Object -> JSON 문자열로 변환 (DTO에서 metadata Object로 저장했었음)
         String metadataJson = null;
         if (messageDto.getMetadata() != null) {
@@ -53,7 +51,6 @@ public class ChatService {
                 metadataJson = null;
             }
         }
-
         ChatMessage message = ChatMessage.builder()
                 .chatroomId(messageDto.getChatroomId())
                 .senderId(messageDto.getSenderId())
@@ -61,10 +58,28 @@ public class ChatService {
                 .content(messageDto.getContent())
                 .metadata(metadataJson) // JSON string 저장
                 .build();
-
         message = chatMessageRepository.save(message);
-
         return message;
+    }
+
+    // REST / WS 모두 동일한 메시지 구조로 응답을 주기 위해 추가
+    public ChatMessageResponse toResponse(ChatMessage message) {
+        Object metadataObj = null;
+        if (message.getMetadata() != null) {
+            try {
+                metadataObj = objectMapper.readValue(message.getMetadata(), Object.class);
+            } catch (Exception e) {
+                metadataObj = null;
+            }
+        }
+        return ChatMessageResponse.builder()
+                .messageId(message.getMessageId())
+                .senderId(message.getSenderId())
+                .type(message.getType().name())
+                .content(message.getContent())
+                .sentAt(message.getSentAt())
+                .metadata(metadataObj)
+                .build();
     }
 
     // --- 2. 시스템 메시지 저장 ---
