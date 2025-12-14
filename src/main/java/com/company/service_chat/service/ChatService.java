@@ -39,6 +39,20 @@ public class ChatService {
     // --- 1. 일반 메시지 DB 저장 ---
     @Transactional
     public ChatMessage saveMessage(ChatMessageDto messageDto) {
+        // 1. 채팅방 조회
+        ChatRoom chatRoom = chatRoomRepository.findById(messageDto.getChatroomId())
+                .orElseThrow(() -> new IllegalArgumentException("채팅방 없음"));
+
+        Long senderId = messageDto.getSenderId();
+
+        // 2. 권한 체크
+        boolean isParticipant =
+                senderId.equals(chatRoom.getSellerId()) ||
+                        senderId.equals(chatRoom.getBuyerId());
+
+        if (!isParticipant) {
+            throw new IllegalStateException("채팅방 참여자만 메시지 전송 가능");
+        }
         // Enum 매핑
         ChatMessage.MessageType mappedType =
                 ChatMessage.MessageType.valueOf(messageDto.getType().name());
