@@ -1,5 +1,5 @@
 apiVersion: v2
-name: service_chat-service
+name: service-chat-service
 description: A Helm chart for MSA Service_chat Service
 type: application
 version: 0.1.0

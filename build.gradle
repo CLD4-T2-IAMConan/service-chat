@@ -39,9 +39,18 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'com.h2database:h2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+test {
+    useJUnitPlatform()
+    // 이 옵션으로 모든 테스트 실행 시 spring.profiles.active=test 가 적용됨
+    systemProperty 'spring.profiles.active', 'test'
 }
