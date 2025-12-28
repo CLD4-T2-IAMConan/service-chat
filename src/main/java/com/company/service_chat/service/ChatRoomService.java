@@ -43,7 +43,7 @@ public class ChatRoomService {
 
         // 1. 티켓 서비스에서 판매자 ID 조회
         // [TODO: 실제 티켓 서비스에서 sellerId를 조회하는 로직 구현]
-        Long sellerId = 4L;
+        Long sellerId = 5L;
         // Long sellerId = ticketLookupService.getSellerId(ticketId);
 
         // 2. ChatRoom 생성 및 저장
