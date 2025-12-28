@@ -229,6 +229,7 @@ public class ChatRoomService {
         metadata.put("actionType", "TICKET_REJECT");
         metadata.put("reason", "판매자 거절");
         metadata.put("visibleTarget", "BUYER");
+        metadata.put("buyerId", chatRoom.getBuyerId());
         // 여기까지 양도 거절 metadata --------------------------
 
         // 2. 거절 시스템 메시지 저장
