@@ -11,6 +11,8 @@ import com.company.service_chat.repository.ChatRoomRepository;
 import com.company.service_chat.repository.ChatMemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.company.service_chat.dto.VisibleTarget;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -62,6 +64,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "REQUEST_TRANSFER_INTRO");
         metadata.put("buyerId", buyerId);
+        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -140,6 +143,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "TICKET_REQUEST");
         metadata.put("sellerId", chatRoom.getSellerId());
+        metadata.put("visibleTarget", VisibleTarget.SELLER.name());
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -163,7 +167,7 @@ public class ChatRoomService {
                 buyerId,
                 ChatMessageDto.MessageType.SYSTEM_ACTION_MESSAGE,
                 "구매자가 티켓 양도를 신청했습니다. 수락/거절을 선택해주세요.",
-                metadata // 위에서 만든 메타데이터
+                metadata
         );
     }
 
@@ -185,6 +189,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "PAYMENT_REQUEST");
         metadata.put("buyerId", chatRoom.getBuyerId());
+        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -220,6 +225,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "TICKET_REJECT");
         metadata.put("reason", "판매자 거절");
+        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
         // 여기까지 양도 거절 metadata --------------------------
 
         // 2. 거절 시스템 메시지 저장

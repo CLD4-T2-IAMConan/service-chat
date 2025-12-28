@@ -2,6 +2,7 @@ package com.company.service_chat.service;
 
 import com.company.service_chat.dto.ChatMessageDto;
 import com.company.service_chat.dto.ChatMessageResponse;
+import com.company.service_chat.dto.VisibleTarget;
 import com.company.service_chat.entity.ChatMember;
 import com.company.service_chat.entity.ChatMessage;
 import com.company.service_chat.entity.ChatRoom;
