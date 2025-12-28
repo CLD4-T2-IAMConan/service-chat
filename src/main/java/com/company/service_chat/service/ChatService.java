@@ -42,7 +42,8 @@ public class ChatService {
         ChatRoom chatRoom = chatRoomRepository.findById(messageDto.getChatroomId())
                 .orElseThrow(() -> new IllegalArgumentException("채팅방 없음"));
 
-        if (chatRoom.getRoomStatus() == ChatRoom.RoomStatus.LOCK) {
+        if (chatRoom.getRoomStatus() == ChatRoom.RoomStatus.LOCK
+                && messageDto.getType() == ChatMessageDto.MessageType.TEXT) {
             throw new IllegalStateException("잠긴 채팅방에서는 메시지를 보낼 수 없습니다.");
         }
 
