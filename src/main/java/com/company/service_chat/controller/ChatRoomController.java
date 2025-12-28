@@ -1,9 +1,6 @@
 package com.company.service_chat.controller;
 
-import com.company.service_chat.dto.ApiResponse;
-import com.company.service_chat.dto.ChatMessageResponse;
-import com.company.service_chat.dto.ChatRoomResponse;
-import com.company.service_chat.dto.ChatRoomRequest;
+import com.company.service_chat.dto.*;
 import com.company.service_chat.service.ChatRoomService;
 import com.company.service_chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -62,4 +59,37 @@ public class ChatRoomController {
         chatRoomService.deleteChatRoomForUser(chatroomId, userId);
         return ApiResponse.success(null);
     }
+
+    @PostMapping("/system-action")
+    public void handleSystemAction(
+            @RequestBody SystemActionRequest request,
+            @RequestParam Long userId
+    ) {
+        switch (request.getActionCode()) {
+            case "TRANSFER_REQUEST":
+                chatRoomService.handleDealRequest(
+                        request.getChatroomId(),
+                        userId
+                );
+                break;
+
+            case "TRANSFER_ACCEPT":
+                chatRoomService.handleDealAccept(
+                        request.getChatroomId(),
+                        userId
+                );
+                break;
+
+            case "TRANSFER_REJECT":
+                chatRoomService.handleDealReject(
+                        request.getChatroomId(),
+                        userId
+                );
+                break;
+
+            default:
+                throw new IllegalArgumentException("알 수 없는 actionCode");
+        }
+    }
+
 }

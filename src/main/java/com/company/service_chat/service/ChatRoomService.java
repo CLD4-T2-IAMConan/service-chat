@@ -216,6 +216,10 @@ public class ChatRoomService {
         ChatRoom chatRoom = chatRoomRepository.findById(chatroomId)
                 .orElseThrow(() -> new NoSuchElementException("채팅방을 찾을 수 없습니다."));
 
+        if (!chatRoom.getSellerId().equals(sellerId)) {
+            throw new IllegalStateException("판매자만 거절할 수 있습니다.");
+        }
+
         // 1. RoomStatus를 LOCK으로 변경, DealStatus를 REJECTED로 변경
         chatRoom.updateStatus(RoomStatus.LOCK, DealStatus.REJECTED);
         chatRoomRepository.save(chatRoom);
