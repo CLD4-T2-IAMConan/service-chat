@@ -4,10 +4,8 @@ import com.company.service_chat.dto.*;
 import com.company.service_chat.service.ChatRoomService;
 import com.company.service_chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @RestController
 @RequestMapping("/chat/rooms")
@@ -65,10 +63,8 @@ public class ChatRoomController {
     @PostMapping("/system-action")
     public void handleSystemAction(
             @RequestBody SystemActionRequest request,
-            Authentication authentication
+            @RequestParam Long userId
     ) {
-        Long userId = Long.valueOf(authentication.getName());
-
         switch (request.getActionCode()) {
             case "TRANSFER_REQUEST":
                 chatRoomService.handleDealRequest(
