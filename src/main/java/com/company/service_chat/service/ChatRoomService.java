@@ -11,7 +11,6 @@ import com.company.service_chat.repository.ChatRoomRepository;
 import com.company.service_chat.repository.ChatMemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.company.service_chat.dto.VisibleTarget;
 
 
 import java.util.*;
@@ -64,7 +63,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "REQUEST_TRANSFER_INTRO");
         metadata.put("buyerId", buyerId);
-        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
+        metadata.put("visibleTarget", "BUYER");
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -143,7 +142,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "TICKET_REQUEST");
         metadata.put("sellerId", chatRoom.getSellerId());
-        metadata.put("visibleTarget", VisibleTarget.SELLER.name());
+        metadata.put("visibleTarget", "SELLER");
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -189,7 +188,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "PAYMENT_REQUEST");
         metadata.put("buyerId", chatRoom.getBuyerId());
-        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
+        metadata.put("visibleTarget", "BUYER");
 
         List<Map<String, Object>> actions = new ArrayList<>();
         actions.add(Map.of(
@@ -225,7 +224,7 @@ public class ChatRoomService {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("actionType", "TICKET_REJECT");
         metadata.put("reason", "판매자 거절");
-        metadata.put("visibleTarget", VisibleTarget.BUYER.name());
+        metadata.put("visibleTarget", "BUYER");
         // 여기까지 양도 거절 metadata --------------------------
 
         // 2. 거절 시스템 메시지 저장

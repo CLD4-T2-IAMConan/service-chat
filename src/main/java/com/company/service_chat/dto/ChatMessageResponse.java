@@ -16,5 +16,4 @@ public class ChatMessageResponse {
     private String content;
     private LocalDateTime sentAt;
     private Object metadata;
-    private VisibleTarget visibleTo;
 }

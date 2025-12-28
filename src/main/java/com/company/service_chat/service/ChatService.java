@@ -2,7 +2,6 @@ package com.company.service_chat.service;
 
 import com.company.service_chat.dto.ChatMessageDto;
 import com.company.service_chat.dto.ChatMessageResponse;
-import com.company.service_chat.dto.VisibleTarget;
 import com.company.service_chat.entity.ChatMember;
 import com.company.service_chat.entity.ChatMessage;
 import com.company.service_chat.entity.ChatRoom;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
