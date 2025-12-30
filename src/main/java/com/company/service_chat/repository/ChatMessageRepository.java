@@ -14,4 +14,10 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
     List<ChatMessage> findByChatroomIdOrderBySentAtAsc(Long chatroomId);
     // lastReadMessageId 이후의 메시지만 가져올 때 사용
     List<ChatMessage> findByChatroomIdAndMessageIdGreaterThan(Long chatroomId, Long messageId);
+
+    // 특정 채팅방의 최신 메시지 1개 조회 (채팅 목록에서 마지막 메시지 표시용)
+    ChatMessage findTopByChatroomIdOrderBySentAtDesc(Long chatroomId);
+
+    // 안 읽은 메시지 개수 세기 (messageId > lastReadMessageId이고 type이 TEXT인 메시지만 카운트)
+    int countByChatroomIdAndMessageIdGreaterThanAndType(Long chatroomId, Long lastReadMessageId, ChatMessage.MessageType type);
 }

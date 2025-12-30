@@ -10,7 +10,7 @@ public class WebClientConfig {
     @Bean
     public WebClient ticketWebClient() {
         return WebClient.builder()
-                .baseUrl("http://ticket-service:8080") // 티켓 서비스 URL
+                .baseUrl("http://host.docker.internal:8082") // 티켓 서비스 URL (호스트에서 실행 중)
                 .build();
     }
 }

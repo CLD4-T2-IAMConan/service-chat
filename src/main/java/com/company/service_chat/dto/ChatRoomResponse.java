@@ -14,4 +14,10 @@ public class ChatRoomResponse {
     private Long ticketId;
     private LocalDateTime createdAt;
     private String roomStatus;
+
+    // 채팅 목록에 표시할 최신 메시지 정보
+    private String lastMessageContent;      // 마지막 메시지 내용
+    private String lastMessageType;         // 마지막 메시지 타입 (TEXT, SYSTEM_ACTION_MESSAGE, SYSTEM_INFO_MESSAGE)
+    private LocalDateTime lastMessageTime;  // 마지막 메시지 시간
+    private Integer unreadCount;            // 안 읽은 메시지 수
 }

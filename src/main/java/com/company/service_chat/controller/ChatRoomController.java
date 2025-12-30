@@ -50,6 +50,16 @@ public class ChatRoomController {
         return ApiResponse.success(null);
     }
 
+    // 4-1. 채팅방 입장 시 모든 메시지 읽음 처리 (PUT /chat/rooms/{chatroomId}/read-all?userId=1)
+    @PutMapping("/{chatroomId}/read-all")
+    public ApiResponse<Void> markAllAsRead(
+            @PathVariable Long chatroomId,
+            @RequestParam Long userId) {
+
+        chatRoomService.markMessagesAsRead(chatroomId, userId);
+        return ApiResponse.success(null);
+    }
+
     // 5. 사용자 기준으로 채팅방 삭제 (DELETE /chat/rooms/{chatroomId}?userId=1)
     @DeleteMapping("/{chatroomId}")
     public ApiResponse<Void> deleteChatRoom(
@@ -61,34 +71,45 @@ public class ChatRoomController {
     }
 
     @PostMapping("/system-action")
-    public void handleSystemAction(
+    public ApiResponse<Void> handleSystemAction(
             @RequestBody SystemActionRequest request,
             @RequestParam Long userId
     ) {
-        switch (request.getActionCode()) {
-            case "TRANSFER_REQUEST":
-                chatRoomService.handleDealRequest(
-                        request.getChatroomId(),
-                        userId
-                );
-                break;
+        try {
+            switch (request.getActionCode()) {
+                case "TRANSFER_REQUEST":
+                    chatRoomService.handleDealRequest(
+                            request.getChatroomId(),
+                            userId
+                    );
+                    break;
 
-            case "TRANSFER_ACCEPT":
-                chatRoomService.handleDealAccept(
-                        request.getChatroomId(),
-                        userId
-                );
-                break;
+                case "TRANSFER_ACCEPT":
+                    chatRoomService.handleDealAccept(
+                            request.getChatroomId(),
+                            userId
+                    );
+                    break;
 
-            case "TRANSFER_REJECT":
-                chatRoomService.handleDealReject(
-                        request.getChatroomId(),
-                        userId
-                );
-                break;
+                case "TRANSFER_REJECT":
+                    chatRoomService.handleDealReject(
+                            request.getChatroomId(),
+                            userId
+                    );
+                    break;
 
-            default:
-                throw new IllegalArgumentException("알 수 없는 actionCode");
+                case "START_PAYMENT":
+                    // 결제 시작은 프론트엔드에서 처리하므로 여기서는 성공 응답만 반환
+                    // 실제 결제 처리는 결제 서비스에서 처리됨
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("알 수 없는 actionCode: " + request.getActionCode());
+            }
+            return ApiResponse.success(null);
+        } catch (Exception e) {
+            // 예외는 GlobalExceptionHandler에서 처리되지만, 여기서도 로깅
+            throw e;
         }
     }
 

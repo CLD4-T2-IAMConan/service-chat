@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "chat_members")
 public class ChatMember {
@@ -33,5 +34,10 @@ public class ChatMember {
     // 채팅방 나가기(숨김) 처리 메서드
     public void markAsDeleted() {
         this.isDeleted = true;
+    }
+    
+    // 채팅방 복구(삭제 해제) 처리 메서드
+    public void restore() {
+        this.isDeleted = false;
     }
 }
