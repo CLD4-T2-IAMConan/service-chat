@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     show-sql: true
     properties:
       hibernate:
@@ -31,5 +31,5 @@ management:
 
 logging:
   level:
-    com.company.template: DEBUG
+    com.company.service_chat: DEBUG
     org.springframework: INFO
