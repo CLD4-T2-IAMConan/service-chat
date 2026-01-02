@@ -53,18 +53,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Update Helm values in main repository
-        env:
-          MAIN_REPO_PAT: ${{ secrets.MAIN_REPO_PAT }}
+      - name: Update Helm values in service repository
         run: |
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
           IMAGE_TAG="sha-${SHORT_SHA}"
           
-          git clone https://${MAIN_REPO_PAT}@github.com/CLD4-T2-IAMConan/Passit.git main-repo
-          cd main-repo
-          git checkout develop || git checkout -b develop
-          
-          VALUES_FILE="service-chat/helm/values-dev.yaml"
+          VALUES_FILE="helm/values-dev.yaml"
           if [ -f "$VALUES_FILE" ]; then
             if command -v yq &> /dev/null; then
               yq eval ".image.tag = \"$IMAGE_TAG\"" -i "$VALUES_FILE"
@@ -76,8 +70,8 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git config user.name "github-actions[bot]"
             git add "$VALUES_FILE"
-            git commit -m "chore: update chat-service image tag to $IMAGE_TAG [skip ci]" || echo "No changes to commit"
-            git push origin develop
+            git commit -m "chore: update image tag to $IMAGE_TAG [skip ci]" || echo "No changes to commit"
+            git push origin main
           else
             echo "⚠️  Helm values file not found: $VALUES_FILE"
           fi
