@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: service-chat-service
   pullPolicy: IfNotPresent
-  tag: "sha-b10dcbe"
+  tag: "sha-1685761"
 service:
   type: ClusterIP
   port: 80
