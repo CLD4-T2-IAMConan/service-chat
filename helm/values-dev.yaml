@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
-  repository: service-chat-service
-  pullPolicy: IfNotPresent
+  repository: ghcr.io/cld4-t2-iamconan/service-chat
+  pullPolicy: Always
   tag: "sha-943253c"
 service:
   type: ClusterIP
