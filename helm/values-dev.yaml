@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: ghcr.io/cld4-t2-iamconan/service-chat
   pullPolicy: Always
-  tag: "sha-943253c"
+  tag: "sha-7214751"
 service:
   type: ClusterIP
   port: 80
