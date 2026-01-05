@@ -48,13 +48,19 @@ public class RedisConfig {
 
         LettuceClientConfiguration.LettuceClientConfigurationBuilder clientConfig =
             LettuceClientConfiguration.builder()
-                .commandTimeout(Duration.ofSeconds(3));
+                .commandTimeout(Duration.ofSeconds(3))
+                // 연결 실패 시에도 애플리케이션이 시작되도록 설정
+                .shutdownTimeout(Duration.ofSeconds(1));
 
         if (sslEnabled) {
             clientConfig.useSsl();
         }
 
-        return new LettuceConnectionFactory(redisConfig, clientConfig.build());
+        LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig, clientConfig.build());
+        // 연결 검증을 비활성화하여 Redis 연결 실패 시에도 애플리케이션이 시작되도록 함
+        factory.setValidateConnection(false);
+        
+        return factory;
     }
 
     @Bean
