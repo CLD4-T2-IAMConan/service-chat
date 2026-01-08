@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: ghcr.io/cld4-t2-iamconan/service-chat
   pullPolicy: Always
-  tag: "sha-7baafae"
+  tag: "sha-3eed2dd"
 imagePullSecrets:
   - name: ghcr-pull-secret
 # ServiceAccount는 Terraform IRSA 모듈이 생성 (chat-sa)
