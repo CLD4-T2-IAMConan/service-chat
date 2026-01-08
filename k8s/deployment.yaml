@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service_chat-service
+  name: chat-service
   labels:
-    app: service_chat-service
+    app: chat-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: service_chat-service
+      app: chat-service
   template:
     metadata:
       labels:
-        app: service_chat-service
+        app: chat-service
     spec:
       containers:
-      - name: service_chat-service
-        image: service_chat-service:latest
+      - name: chat-service
+        image: chat-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -25,27 +25,27 @@ spec:
         - name: DB_HOST
           valueFrom:
             configMapKeyRef:
-              name: service_chat-config
+              name: chat-config
               key: db.host
         - name: DB_PORT
           valueFrom:
             configMapKeyRef:
-              name: service_chat-config
+              name: chat-config
               key: db.port
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
-              name: service_chat-config
+              name: chat-config
               key: db.name
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: service_chat-secret
+              name: chat-secret
               key: db.user
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: service_chat-secret
+              name: chat-secret
               key: db.password
         resources:
           requests:
