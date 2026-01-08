@@ -2,7 +2,7 @@ replicaCount: 2
 image:
   repository: ghcr.io/cld4-t2-iamconan/service-chat
   pullPolicy: Always
-  tag: "sha-8fa6a6a"
+  tag: "sha-202f83f"
 imagePullSecrets:
   - name: ghcr-pull-secret
 serviceAccount:
@@ -50,7 +50,7 @@ database:
   user: passit_user
   password: passit_password
 env:
-  SPRING_PROFILES_ACTIVE: "production"
+  SPRING_PROFILES_ACTIVE: "prod"
   SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
 livenessProbe:
   httpGet:
