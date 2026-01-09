@@ -1,5 +1,5 @@
 # Override resource names to avoid duplication
-fullnameOverride: chat-service
+fullnameOverride: service-chat
 
 replicaCount: 2
 image:
