@@ -11,7 +11,7 @@ service:
   targetPort: 8084
 ingress:
   enabled: true
-  className: "alb"
+  className: alb
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/group.name: passit-dr-alb
@@ -38,6 +38,7 @@ autoscaling:
   minReplicas: 2
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 database:
   enabled: true
   host: passit-dr-aurora-cluster.cluster-c1ky2k6y6s3s.ap-northeast-1.rds.amazonaws.com
@@ -45,9 +46,19 @@ database:
   name: passit_db
   user: passit_user
   password: passit_password
+redis:
+  host: passit-dr-valkey.kqxlkn.ng.0001.apne1.cache.amazonaws.com
+  port: 6379
+  password: "" # ElastiCache 비밀번호가 있는 경우 설정
+  ssl: true
 env:
-  SPRING_PROFILES_ACTIVE: "prod"
-  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+  SPRING_PROFILES_ACTIVE: "production"
+startupProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8084
+    failureThreshold: 30
+    periodSeconds: 10
 livenessProbe:
   httpGet:
     path: /actuator/health/liveness
@@ -64,12 +75,8 @@ readinessProbe:
   periodSeconds: 5
   timeoutSeconds: 3
   failureThreshold: 3
-# Valkey 설정 (ElastiCache for Valkey)
-redis:
-  host: passit-dr-valkey.kqxlkn.ng.0001.apne1.cache.amazonaws.com
-  port: 6379
-  password: ""
-  ssl: true
+s3:
+  bucket: passit-dr-profile-images-bucket
 
 monitoring:
   enabled: true
